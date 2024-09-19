@@ -1,12 +1,14 @@
-from sqlalchemy import Table, Column, Integer, String, JSON, TIMESTAMP, ForeignKey, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
-from fastapi_users.db import SQLAlchemyBaseUserTable
 from datetime import datetime
+
+from fastapi_users.db import SQLAlchemyBaseUserTable
+from sqlalchemy import Integer, String, JSON, TIMESTAMP, ForeignKey, Boolean
 from sqlalchemy.orm import DeclarativeBase
-from .schemas import AuthBase
+from sqlalchemy.orm import Mapped, mapped_column
+
 
 class AuthBase(DeclarativeBase):
     pass
+
 
 class Role(AuthBase):
     __tablename__ = 'roles'
@@ -50,3 +52,6 @@ class User(SQLAlchemyBaseUserTable[int], AuthBase):
     role_id: Mapped[int] = mapped_column(
         Integer, ForeignKey(Role.id)
     )
+
+
+
